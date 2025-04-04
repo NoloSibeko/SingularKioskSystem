@@ -1,0 +1,6 @@
+@SingularKioskSystem_HostAddress = http://localhost:5067
+
+GET {{SingularKioskSystem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
