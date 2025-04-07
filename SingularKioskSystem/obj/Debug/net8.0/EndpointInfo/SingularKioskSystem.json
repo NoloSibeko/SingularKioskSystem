@@ -190,44 +190,6 @@
         }
       }
     },
-    "/api/User": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/User/{id}": {
       "get": {
         "tags": [
@@ -338,47 +300,30 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/RegisterUserDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/RegisterUserDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/RegisterUserDTO"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
     "/api/User/login": {
-      "post": {
+      "get": {
         "tags": [
           "User"
         ],
@@ -386,17 +331,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/LoginUserDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/LoginUserDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/LoginUserDTO"
               }
             }
           }
@@ -412,11 +357,6 @@
   "components": {
     "schemas": {
       "Admin": {
-        "required": [
-          "adminName",
-          "adminSurname",
-          "role"
-        ],
         "type": "object",
         "properties": {
           "adminID": {
@@ -428,18 +368,16 @@
             "format": "int32"
           },
           "adminName": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "adminSurname": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "role": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "user": {
             "$ref": "#/components/schemas/User"
@@ -448,10 +386,6 @@
         "additionalProperties": false
       },
       "Cart": {
-        "required": [
-          "numberOfItems",
-          "totalAmount"
-        ],
         "type": "object",
         "properties": {
           "cartID": {
@@ -498,11 +432,21 @@
         },
         "additionalProperties": false
       },
+      "LoginUserDTO": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ProductCategory": {
-        "required": [
-          "categoryName",
-          "description"
-        ],
         "type": "object",
         "properties": {
           "productCategoryID": {
@@ -514,8 +458,8 @@
             "format": "int32"
           },
           "categoryName": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "description": {
             "type": "integer",
@@ -532,12 +476,6 @@
         "additionalProperties": false
       },
       "Products": {
-        "required": [
-          "isAvailable",
-          "price",
-          "productName",
-          "quantity"
-        ],
         "type": "object",
         "properties": {
           "productID": {
@@ -557,8 +495,8 @@
             "format": "double"
           },
           "productName": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "quantity": {
             "type": "integer",
@@ -583,12 +521,37 @@
         },
         "additionalProperties": false
       },
+      "RegisterUserDTO": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "surname": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TransactionDetails": {
-        "required": [
-          "amount",
-          "description",
-          "transactionDate"
-        ],
         "type": "object",
         "properties": {
           "transactionID": {
@@ -616,8 +579,8 @@
             "format": "double"
           },
           "description": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "user": {
             "$ref": "#/components/schemas/User"
@@ -632,16 +595,6 @@
         "additionalProperties": false
       },
       "User": {
-        "required": [
-          "accountStatus",
-          "contactNumber",
-          "email",
-          "name",
-          "passwordHash",
-          "surname",
-          "username",
-          "userRole"
-        ],
         "type": "object",
         "properties": {
           "userID": {
@@ -657,39 +610,36 @@
             "format": "int32"
           },
           "userRole": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "username": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "name": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "surname": {
-            "maxLength": 100,
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "passwordHash": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "accountStatus": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "email": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "contactNumber": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "wallet": {
             "$ref": "#/components/schemas/Wallet"
@@ -718,9 +668,6 @@
         "additionalProperties": false
       },
       "Wallet": {
-        "required": [
-          "balance"
-        ],
         "type": "object",
         "properties": {
           "walletID": {

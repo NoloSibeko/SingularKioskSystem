@@ -29,6 +29,7 @@ namespace SingularKioskSystem.Data
                 .WithOne(a => a.User)
                 .HasForeignKey<Admin>(a => a.UserID);
 
+            // Users and Carts (One-to-One)
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Carts)
                 .WithOne(c => c.User)
@@ -64,7 +65,7 @@ namespace SingularKioskSystem.Data
                 .WithMany(p => p.Carts)
                 .UsingEntity(j => j.ToTable("CartProducts"));
 
-            // One-to-One Relationship
+            // One-to-One Relationship between Cart and Transaction
             modelBuilder.Entity<Cart>()
                 .HasOne(c => c.Transaction)
                 .WithOne(t => t.Cart)

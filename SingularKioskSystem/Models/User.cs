@@ -14,28 +14,20 @@ namespace SingularKioskSystem.Models
         [ForeignKey("Wallet")]
         public int WalletID { get; set; }
 
-        [Required]
         public string UserRole { get; set; }
 
-        [Required, MaxLength(100)]
         public string Username { get; set; }
 
-        [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        [Required, MaxLength(100)]
         public string Surname { get; set; }
 
-        [Required]
         public string PasswordHash { get; set; }
 
-        [Required]
         public string AccountStatus { get; set; }
 
-        [Required]
         public string Email { get; set; }
 
-        [Required]
         public string ContactNumber{ get; set; }
 
         // One-to-One: User has one Wallet

@@ -20,13 +20,10 @@ namespace SingularKioskSystem.Models
         [ForeignKey("Cart")]
         public int CartID { get; set; }
 
-        [Required]
         public DateTime TransactionDate { get; set; }
 
-        [Required]
         public decimal Amount { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
         public User User { get; set; } // Navigation property

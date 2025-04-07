@@ -110,26 +110,6 @@
   },
   {
     "ContainingType": "SingularKioskSystem.Controllers.UserController",
-    "Method": "GetUsers",
-    "RelativePath": "api/User",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[SingularKioskSystem.Models.User, SingularKioskSystem, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "SingularKioskSystem.Controllers.UserController",
     "Method": "GetUser",
     "RelativePath": "api/User/{id}",
     "HttpMethod": "GET",
@@ -195,13 +175,13 @@
     "ContainingType": "SingularKioskSystem.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "api/User/login",
-    "HttpMethod": "POST",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loginRequest",
-        "Type": "SingularKioskSystem.Models.User",
+        "Name": "dto",
+        "Type": "SingularKioskSystem.Models.DTOs.LoginUserDTO",
         "IsRequired": true
       }
     ],
@@ -216,21 +196,11 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "SingularKioskSystem.Models.User",
+        "Name": "dto",
+        "Type": "SingularKioskSystem.DTOs.RegisterUserDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "SingularKioskSystem.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   }
 ]

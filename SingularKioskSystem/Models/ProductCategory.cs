@@ -13,10 +13,8 @@ namespace SingularKioskSystem.Models
         [ForeignKey("Product")]
         public int ProductID { get; set; }
 
-        [Required]
         public string CategoryName { get; set; }
 
-        [Required]
         public int Description { get; set; }
 
         public ICollection<Products> Products { get; set; } // One-to-Many

@@ -23,10 +23,8 @@ namespace SingularKioskSystem.Models
         [ForeignKey("Wallet")]
         public int WalletID { get; set; }
 
-        [Required]
         public int NumberOfItems { get; set; }
 
-        [Required]
         public decimal TotalAmount  { get; set; }
 
         public User User { get; set; }

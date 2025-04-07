@@ -12,8 +12,8 @@ using SingularKioskSystem.Data;
 namespace SingularKioskSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250404115848_AddAdminColumn")]
-    partial class AddAdminColumn
+    [Migration("20250404123349_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -11,7 +11,6 @@ namespace SingularKioskSystem.Models
         [ForeignKey("User")]
         public int UserID { get; set; }
 
-        [Required]
         public decimal Balance { get; set; }
 
         public User User { get; set; }

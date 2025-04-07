@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SingularKioskSystem.Migrations
 {
+    /// <inheritdoc />
     public partial class InitialCreate : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -17,7 +19,7 @@ namespace SingularKioskSystem.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductID = table.Column<int>(type: "int", nullable: false),
                     CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false) // Changed from int to string
+                    Description = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,6 +32,7 @@ namespace SingularKioskSystem.Migrations
                 {
                     UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    AdminID = table.Column<int>(type: "int", nullable: false),
                     WalletID = table.Column<int>(type: "int", nullable: false),
                     UserRole = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -139,70 +142,67 @@ namespace SingularKioskSystem.Migrations
                         principalTable: "Users",
                         principalColumn: "UserID",
                         onDelete: ReferentialAction.Cascade);
-
                 });
 
             migrationBuilder.CreateTable(
-                    name: "CartProducts",
-                    columns: table => new
-                    {
-                        CartsCartID = table.Column<int>(nullable: false),
-                        ProductsProductID = table.Column<int>(nullable: false)
-                    },
-                    constraints: table =>
-                    {
-                        table.PrimaryKey("PK_CartProducts", x => new { x.CartsCartID, x.ProductsProductID });
-                        table.ForeignKey(
-                            name: "FK_CartProducts_Carts_CartsCartID",
-                            column: x => x.CartsCartID,
-                            principalTable: "Carts",
-                            principalColumn: "CartID",
-                            onDelete: ReferentialAction.Restrict); 
+                name: "CartProducts",
+                columns: table => new
+                {
+                    CartsCartID = table.Column<int>(type: "int", nullable: false),
+                    ProductsProductID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartProducts", x => new { x.CartsCartID, x.ProductsProductID });
+                    table.ForeignKey(
+                        name: "FK_CartProducts_Carts_CartsCartID",
+                        column: x => x.CartsCartID,
+                        principalTable: "Carts",
+                        principalColumn: "CartID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CartProducts_Products_ProductsProductID",
+                        column: x => x.ProductsProductID,
+                        principalTable: "Products",
+                        principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-                        table.ForeignKey(
-                            name: "FK_CartProducts_Products_ProductsProductID",
-                            column: x => x.ProductsProductID,
-                            principalTable: "Products",
-                            principalColumn: "ProductID",
-                            onDelete: ReferentialAction.Restrict); 
-                    });
-
-             migrationBuilder.CreateTable(
-         name: "TransactionDetails",
-         columns: table => new
-     {
-         TransactionID = table.Column<int>(type: "int", nullable: false)
-             .Annotation("SqlServer:Identity", "1, 1"),
-         UserID = table.Column<int>(type: "int", nullable: false),
-         WalletID = table.Column<int>(type: "int", nullable: false),
-         CartID = table.Column<int>(type: "int", nullable: false),
-         TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-         Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-         Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-     },
-     constraints: table =>
-     {
-         table.PrimaryKey("PK_TransactionDetails", x => x.TransactionID);
-         table.ForeignKey(
-             name: "FK_TransactionDetails_Carts_CartID",
-             column: x => x.CartID,
-             principalTable: "Carts",
-             principalColumn: "CartID",
-             onDelete: ReferentialAction.Cascade); // Can remain as CASCADE
-         table.ForeignKey(
-             name: "FK_TransactionDetails_Users_UserID",
-             column: x => x.UserID,
-             principalTable: "Users",
-             principalColumn: "UserID",
-             onDelete: ReferentialAction.NoAction); // Changed to NoAction
-         table.ForeignKey(
-             name: "FK_TransactionDetails_Wallets_WalletID",
-             column: x => x.WalletID,
-             principalTable: "Wallets",
-             principalColumn: "WalletID",
-             onDelete: ReferentialAction.NoAction); // Changed to NoAction
-     });
-
+            migrationBuilder.CreateTable(
+                name: "TransactionDetails",
+                columns: table => new
+                {
+                    TransactionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    WalletID = table.Column<int>(type: "int", nullable: false),
+                    CartID = table.Column<int>(type: "int", nullable: false),
+                    TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionDetails", x => x.TransactionID);
+                    table.ForeignKey(
+                        name: "FK_TransactionDetails_Carts_CartID",
+                        column: x => x.CartID,
+                        principalTable: "Carts",
+                        principalColumn: "CartID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TransactionDetails_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "UserID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TransactionDetails_Wallets_WalletID",
+                        column: x => x.WalletID,
+                        principalTable: "Wallets",
+                        principalColumn: "WalletID",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_UserID",
@@ -254,6 +254,7 @@ namespace SingularKioskSystem.Migrations
                 unique: true);
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
