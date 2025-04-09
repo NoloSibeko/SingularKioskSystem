@@ -10,8 +10,8 @@ namespace SingularKioskSystem.Models
         [Key]
         public int ProductID { get; set; }
 
-        [ForeignKey("ProductCategory")]
-        public int ProductCategoryID { get; set; }
+        [ForeignKey("Category")]
+        public int CategoryID { get; set; }
 
         [ForeignKey("User")]
         public int UserID { get; set; }
@@ -22,10 +22,14 @@ namespace SingularKioskSystem.Models
 
         public int Quantity { get; set; }
 
+        public string Description { get; set; }
+
+        public string Image { get; set; }
+
         public Boolean isAvailable { get; set; }
 
-        public ProductCategory ProductCategory { get; set; }
-        public User User { get; set; } // Navigation property
+        public Category Category { get; set; }
+        public User User { get; set; } 
 
         public ICollection<Cart> Carts { get; set; }
     }

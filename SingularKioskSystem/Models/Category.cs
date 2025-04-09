@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SingularKioskSystem.Models
 {
-    public class ProductCategory
+    public class Category
     {
         [Key]
-        public int ProductCategoryID { get; set; }
+        public int CategoryID { get; set; }
 
         [ForeignKey("Product")]
         public int ProductID { get; set; }
@@ -17,6 +17,6 @@ namespace SingularKioskSystem.Models
 
         public int Description { get; set; }
 
-        public ICollection<Products> Products { get; set; } // One-to-Many
+        public ICollection<Products> Products { get; set; } 
     }
 }

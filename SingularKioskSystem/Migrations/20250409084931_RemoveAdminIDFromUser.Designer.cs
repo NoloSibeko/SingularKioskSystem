@@ -12,8 +12,8 @@ using SingularKioskSystem.Data;
 namespace SingularKioskSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250408114310_NoloVersion1")]
-    partial class NoloVersion1
+    [Migration("20250409084931_RemoveAdminIDFromUser")]
+    partial class RemoveAdminIDFromUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,10 @@ namespace SingularKioskSystem.Migrations
             modelBuilder.Entity("SingularKioskSystem.Models.Admin", b =>
                 {
                     b.Property<int>("AdminID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminID"));
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -77,9 +80,6 @@ namespace SingularKioskSystem.Migrations
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("TransactionID")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
@@ -94,13 +94,13 @@ namespace SingularKioskSystem.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("SingularKioskSystem.Models.ProductCategory", b =>
+            modelBuilder.Entity("SingularKioskSystem.Models.Category", b =>
                 {
-                    b.Property<int>("ProductCategoryID")
+                    b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductCategoryID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryID"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
@@ -112,9 +112,9 @@ namespace SingularKioskSystem.Migrations
                     b.Property<int>("ProductID")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductCategoryID");
+                    b.HasKey("CategoryID");
 
-                    b.ToTable("ProductCategories");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("SingularKioskSystem.Models.Products", b =>
@@ -125,14 +125,19 @@ namespace SingularKioskSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductID"));
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ProductCategoryID")
-                        .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -149,7 +154,7 @@ namespace SingularKioskSystem.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("ProductCategoryID");
+                    b.HasIndex("CategoryID");
 
                     b.HasIndex("UserID");
 
@@ -203,12 +208,12 @@ namespace SingularKioskSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"));
 
-                    b.Property<int>("AccountStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AdminID")
+                    b.Property<string>("AccountStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AdminID")
+                        .HasColumnType("int");
 
                     b.Property<string>("ContactNumber")
                         .IsRequired()
@@ -217,12 +222,6 @@ namespace SingularKioskSystem.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmailVerificationToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("EmailVerificationTokenExpiry")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -236,16 +235,9 @@ namespace SingularKioskSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserRole")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("WalletID")
-                        .HasColumnType("int");
 
                     b.HasKey("UserID");
 
@@ -313,9 +305,9 @@ namespace SingularKioskSystem.Migrations
 
             modelBuilder.Entity("SingularKioskSystem.Models.Products", b =>
                 {
-                    b.HasOne("SingularKioskSystem.Models.ProductCategory", "ProductCategory")
+                    b.HasOne("SingularKioskSystem.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("ProductCategoryID")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -325,7 +317,7 @@ namespace SingularKioskSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProductCategory");
+                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });
@@ -374,7 +366,7 @@ namespace SingularKioskSystem.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SingularKioskSystem.Models.ProductCategory", b =>
+            modelBuilder.Entity("SingularKioskSystem.Models.Category", b =>
                 {
                     b.Navigation("Products");
                 });

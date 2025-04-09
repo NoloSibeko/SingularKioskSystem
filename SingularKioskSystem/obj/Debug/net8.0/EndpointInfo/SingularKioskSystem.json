@@ -367,32 +367,32 @@
             "type": "integer",
             "format": "int32"
           },
-          "adminName": {
-            "type": "string",
-            "nullable": true
-          },
-          "adminSurname": {
-            "type": "string",
-            "nullable": true
-          },
-          "role": {
+          "userRole": {
             "type": "string",
             "nullable": true
           },
           "user": {
             "$ref": "#/components/schemas/User"
+          },
+          "adminRole": {
+            "$ref": "#/components/schemas/AdminRole"
           }
         },
         "additionalProperties": false
+      },
+      "AdminRole": {
+        "enum": [
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "Cart": {
         "type": "object",
         "properties": {
           "cartID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "transactionID": {
             "type": "integer",
             "format": "int32"
           },
@@ -432,24 +432,10 @@
         },
         "additionalProperties": false
       },
-      "LoginUserDTO": {
+      "Category": {
         "type": "object",
         "properties": {
-          "username": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ProductCategory": {
-        "type": "object",
-        "properties": {
-          "productCategoryID": {
+          "categoryID": {
             "type": "integer",
             "format": "int32"
           },
@@ -475,6 +461,20 @@
         },
         "additionalProperties": false
       },
+      "LoginUserDTO": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Products": {
         "type": "object",
         "properties": {
@@ -482,7 +482,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "productCategoryID": {
+          "categoryID": {
             "type": "integer",
             "format": "int32"
           },
@@ -502,11 +502,19 @@
             "type": "integer",
             "format": "int32"
           },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "image": {
+            "type": "string",
+            "nullable": true
+          },
           "isAvailable": {
             "type": "boolean"
           },
-          "productCategory": {
-            "$ref": "#/components/schemas/ProductCategory"
+          "category": {
+            "$ref": "#/components/schemas/Category"
           },
           "user": {
             "$ref": "#/components/schemas/User"
@@ -522,31 +530,37 @@
         "additionalProperties": false
       },
       "RegisterUserDTO": {
+        "required": [
+          "contactNumber",
+          "email",
+          "name",
+          "password",
+          "surname"
+        ],
         "type": "object",
         "properties": {
-          "username": {
-            "type": "string",
-            "nullable": true
-          },
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "surname": {
-            "type": "string",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "email": {
+            "minLength": 1,
+            "pattern": "^[^@\\s]+@singular\\.co\\.za$",
             "type": "string",
-            "nullable": true
+            "format": "email"
           },
           "contactNumber": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 8,
+            "pattern": "^(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,}$",
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -601,19 +615,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "adminID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "walletID": {
-            "type": "integer",
-            "format": "int32"
-          },
           "userRole": {
-            "type": "string",
-            "nullable": true
-          },
-          "username": {
             "type": "string",
             "nullable": true
           },
@@ -663,6 +665,9 @@
               "$ref": "#/components/schemas/Products"
             },
             "nullable": true
+          },
+          "adminID": {
+            "$ref": "#/components/schemas/AdminRole"
           }
         },
         "additionalProperties": false

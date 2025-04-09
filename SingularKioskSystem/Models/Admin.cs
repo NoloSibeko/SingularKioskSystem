@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using SingularKioskSystem.Models.Enums;
 
 namespace SingularKioskSystem.Models
 {
@@ -11,12 +12,10 @@ namespace SingularKioskSystem.Models
         [ForeignKey("User")]
         public int UserID { get; set; }
 
-        public string AdminName { get; set; }
+        public string UserRole { get; set; }
 
-        public string AdminSurname { get; set; }
+        public User User { get; set; }
 
-        public string Role { get; set; }
-
-        public User User { get; set; } // Navigation property
+        public AdminRole AdminRole { get; set; }
     }
 }

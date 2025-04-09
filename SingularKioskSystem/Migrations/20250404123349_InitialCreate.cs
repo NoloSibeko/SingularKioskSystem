@@ -12,10 +12,10 @@ namespace SingularKioskSystem.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ProductCategories",
+                name: "Categories",
                 columns: table => new
                 {
-                    ProductCategoryID = table.Column<int>(type: "int", nullable: false)
+                    CategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductID = table.Column<int>(type: "int", nullable: false),
                     CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -23,7 +23,7 @@ namespace SingularKioskSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategories", x => x.ProductCategoryID);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,7 +100,7 @@ namespace SingularKioskSystem.Migrations
                 {
                     ProductID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductCategoryID = table.Column<int>(type: "int", nullable: false),
+                    CategoryID = table.Column<int>(type: "int", nullable: false),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -111,10 +111,10 @@ namespace SingularKioskSystem.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductID);
                     table.ForeignKey(
-                        name: "FK_Products_ProductCategories_ProductCategoryID",
-                        column: x => x.ProductCategoryID,
-                        principalTable: "ProductCategories",
-                        principalColumn: "ProductCategoryID",
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Users_UserID",
@@ -222,9 +222,9 @@ namespace SingularKioskSystem.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductCategoryID",
+                name: "IX_Products_CategoryID",
                 table: "Products",
-                column: "ProductCategoryID");
+                column: "CategoryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_UserID",
@@ -276,7 +276,7 @@ namespace SingularKioskSystem.Migrations
                 name: "Wallets");
 
             migrationBuilder.DropTable(
-                name: "ProductCategories");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Users");

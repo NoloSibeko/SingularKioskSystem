@@ -26,9 +26,9 @@ namespace SingularKioskSystem.Models
 
         public string Description { get; set; }
 
-        public User User { get; set; } // Navigation property
+        public User User { get; set; } 
 
-        public Wallet Wallet { get; set; } // Navigation property
+        public Wallet Wallet { get; set; } 
 
         public Cart Cart { get; set; }
 

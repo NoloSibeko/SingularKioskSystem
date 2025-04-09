@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using SingularKioskSystem.Models.Enums;
 
 namespace SingularKioskSystem.Models
 {
@@ -8,15 +9,7 @@ namespace SingularKioskSystem.Models
         [Key]
         public int UserID { get; set; }
 
-        [ForeignKey("Admin")]
-        public int AdminID { get; set; }
-
-        [ForeignKey("Wallet")]
-        public int WalletID { get; set; }
-
         public string UserRole { get; set; }
-
-        public string Username { get; set; }
 
         public string Name { get; set; }
 
@@ -30,17 +23,14 @@ namespace SingularKioskSystem.Models
 
         public string ContactNumber{ get; set; }
 
-        // One-to-One: User has one Wallet
         public Wallet Wallet { get; set; }
 
-        // One-to-One: A User can be an Admin
         public Admin Admin { get; set; }
         public Cart Carts { get; set; }
 
-        // One-to-Many: A User can have multiple Transactions
         public ICollection<TransactionDetails> Transaction { get; set; }
 
-        // One-to-Many: A User can own multiple Products
         public ICollection<Products> Products { get; set; }
+        public AdminRole AdminID { get; internal set; }
     }
 }

@@ -11,9 +11,6 @@ namespace SingularKioskSystem.Models
         [Key]
         public int CartID { get; set; }
 
-        [ForeignKey("Transaction")]
-        public int TransactionID { get; set; }
-
         [ForeignKey("User")]
         public int UserID { get; set; }
 
@@ -30,8 +27,7 @@ namespace SingularKioskSystem.Models
         public User User { get; set; }
 
        
-        public TransactionDetails Transaction { get; set; } // Corrected property name
-
+        public TransactionDetails Transaction { get; set; } 
         public ICollection<Products> Products { get; set; }
 
     }

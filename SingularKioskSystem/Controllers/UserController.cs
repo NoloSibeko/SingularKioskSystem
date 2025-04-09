@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using SingularKioskSystem.Models.Enums;
 
 namespace SingularKioskSystem.Controllers
 {
@@ -54,28 +55,37 @@ namespace SingularKioskSystem.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Check if username/email already exists
-            if (_context.Users.Any(u => u.Username == dto.Username || u.Email == dto.Email))
-                return Conflict("Username or email already exists.");
+            // Check for duplicates
+            if (_context.Users.Any(u => u.Email == dto.Email))
+                return Conflict("Email already exists.");
 
-            // Create a new Wallet
+            // Default internal logic: always start with AdminRole.User
+            AdminRole internalAdminID = AdminRole.User;
+
+            string role = internalAdminID switch
+            {
+                AdminRole.User => "User",
+                AdminRole.Staff => "Staff",
+                AdminRole.SuperUser => "Superuser",
+                _ => "User"
+            };
+
             var wallet = new Wallet
             {
                 Balance = 0
             };
 
-            // Create new User and assign Wallet
             var user = new User
             {
-                Username = dto.Username,
                 Name = dto.Name,
                 Surname = dto.Surname,
                 Email = dto.Email,
                 ContactNumber = dto.ContactNumber,
-                UserRole = "User",
+                UserRole = role,
                 AccountStatus = "Active",
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Wallet = wallet
+                Wallet = wallet,
+                AdminID = internalAdminID // store it internally in the User table
             };
 
             _context.Users.Add(user);
@@ -83,6 +93,7 @@ namespace SingularKioskSystem.Controllers
 
             return Ok(new { Message = "User registered successfully", UserID = user.UserID });
         }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDTO dto)
@@ -92,7 +103,7 @@ namespace SingularKioskSystem.Controllers
 
             var user = await _context.Users
                 .Include(u => u.Wallet)
-                .FirstOrDefaultAsync(u => u.Username == dto.Username);
+                .FirstOrDefaultAsync(u => u.Email == dto.Email);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
                 return Unauthorized("Invalid username or password");
@@ -105,7 +116,7 @@ namespace SingularKioskSystem.Controllers
                 user = new
                 {
                     user.UserID,
-                    user.Username,
+                    user.Email,
                     user.Name,
                     user.Surname,
                     user.UserRole,
@@ -170,7 +181,7 @@ namespace SingularKioskSystem.Controllers
 
             var claims = new[]
             {
-        new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+        new Claim(JwtRegisteredClaimNames.Sub, user.Email),
         new Claim("UserID", user.UserID.ToString()),
         new Claim(ClaimTypes.Role, user.UserRole),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

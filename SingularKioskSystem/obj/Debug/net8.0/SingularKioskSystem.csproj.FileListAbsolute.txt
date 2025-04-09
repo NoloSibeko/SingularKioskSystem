@@ -8,6 +8,7 @@ C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\SingularKioskSystem.pdb
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\Humanizer.dll
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\Microsoft.Build.Locator.dll
@@ -153,6 +154,7 @@ C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\SingularKioskSystem.csproj.CoreCompileInputs.cache
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\SingularKioskSystem.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\SingularKioskSystem.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\SingularKioskSystem.sourcelink.json
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\scopedcss\bundle\SingularKioskSystem.styles.css
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\staticwebassets.development.json
@@ -170,5 +172,3 @@ C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\SingularKioskSystem.genruntimeconfig.cache
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\ref\SingularKioskSystem.dll
 C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
-C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\bin\Debug\net8.0\BCrypt.Net-Next.dll
-C:\Users\BSibeko\source\repos\SingularKioskSystem\SingularKioskSystem\obj\Debug\net8.0\SingularKioskSystem.sourcelink.json
